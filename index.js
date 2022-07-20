@@ -4,6 +4,8 @@ let audioCanvasCtx = null;
 let inc = 0; // Used for spread_mv mode
 
 let disabledOpts = false;
+let disabledRGBDraw = false;
+let disabledFrameDraw = false;
 
 // Options for the audio visualizer
 const opts = {
@@ -30,6 +32,13 @@ document.RGBVolumeApi = {
   getAutoOptsToggle: () => autoOpsToggle,
   toggleAutoOpts: () => disabledOpts ? disabledOpts = false : disabledOpts = true,
 
+  getDrawRGBToggle: () => drawRGBToggle,
+  toggleDrawRGB: () => disabledRGBDraw ? disabledRGBDraw = false : disabledRGBDraw = true,
+
+  getDrawFrameToggle: () => drawFrameToggle,
+  toggleDrawFrame: () => disabledFrameDraw ? disabledFrameDraw = false : disabledFrameDraw = true,
+
+  getEventListeners: () => eventListeners,
   addEventListener: (event, callback) => eventListeners.push({ event, callback }),
 };
 
@@ -84,6 +93,28 @@ function generateRGB(ratio) {
 
 // Listener for audio events
 document.bridgeProxy.audioListener(async function(audioArray) {
+  // Check if we should start drawing anything at all
+  if (disabledFrameDraw) {
+    // Run all event listeners
+    for (let i = 0; i < eventListeners.length; i++) {
+      if (eventListeners[i].event == "start") {
+        try {
+          eventListeners[i].callback();
+        } catch (e) {
+          console.error("Caught exception in event listener: ");
+          console.error(e);
+  
+          alert("Caught exception in event listener: " + e);
+  
+          // Remove the listener
+          eventListeners.splice(i, 1);
+        }
+      }
+    }
+    
+    return;
+  }
+
   // Clear the canvas and set it to any color or background
   if (opts.bakchoice == "solid") {
     // If solid background, we just set the background color and fillRect().
@@ -136,6 +167,11 @@ document.bridgeProxy.audioListener(async function(audioArray) {
         eventListeners.splice(i, 1);
       }
     }
+  }
+
+  // Check if we should draw the visualizer
+  if (toggleDrawRGB) {
+    return;
   }
 
   // Render bars along the full width of the canvas
