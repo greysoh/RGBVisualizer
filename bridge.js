@@ -7,10 +7,9 @@ function sleep(ms) {
 }
 
 // Lively moment.
-const map = {
-  "rgbmode1": ["spread", "spread_mv", "vol", "custom_col"],
-  "bakchoice": ["solid", "photo"]
-}
+
+// Do not remove this line below. This is for the engine2lvly tooling.
+// MAP_GEN_ID
 
 document.bridgeProxy = {
   getPlatform() {
