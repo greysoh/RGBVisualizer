@@ -232,7 +232,7 @@ document.bridgeProxy.audioListener(async function(audioArray) {
   }
 });
 
-// Register the audio listener provided by Wallpaper Engine.
+// Register the config provided by the bridge.
 document.addEventListener("DOMContentLoaded", () => {
   // Get the audio canvas once the page has loaded
   audioCanvas = document.getElementById("AudioCanvas");

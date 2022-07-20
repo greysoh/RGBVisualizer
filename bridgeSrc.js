@@ -1,12 +1,10 @@
 "use strict";
 
-// Bridges various live wallpaper APIs into a single interface.
+let autocorrectEnable = true;
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-
-// Lively moment.
 
 // Do not remove this line below. This is for the engine2lvly tooling.
 // MAP_GEN_ID
@@ -28,8 +26,6 @@ document.bridgeProxy = {
         applyUserProperties: callback,
       };
     } else if (platform === "Lively") {
-      let data = {};
-
       window.livelyPropertyListener = function (name, oldVal) {
         let val = oldVal;
 
@@ -46,15 +42,11 @@ document.bridgeProxy = {
 
         console.log(name, val);
 
+        let data = {};
         data[name] = { value: val };
+
+        callback(data);
       };
-
-      while (true) {
-        await callback(data);
-        data = {};
-
-        await sleep(10);
-      }
     }
   },
 
@@ -64,7 +56,44 @@ document.bridgeProxy = {
     if (platform === "WallpaperEngine") {
       window.wallpaperRegisterAudioListener(callback);
     } else if (platform === "Lively") {
-      window.livelyAudioListener = callback;
+      let arr = [];
+
+      function range(num, fill) {
+        let arr = [];
+
+        for (let i = 0; i < num; i++) {
+          arr.push(fill);
+        }
+
+        return arr;
+      }
+
+      window.livelyAudioListener = function(data) {
+        // We get the last 64 then mirror it because Lively's visualization is broken.
+        // This does make it inaccurate so I'll add an option to disable it.
+
+        if (autocorrectEnable) {
+          let tempArr = data.slice(data.length - 64);
+
+          for (let i = 0; i < 64; i++) {
+            tempArr.push(tempArr[i]);
+          }
+
+          arr = tempArr;
+        } else {  
+          arr = tempArr;
+        }
+      };
+
+      while (true) {
+        if (arr.length > 0) {
+          callback(arr);
+        } else {
+          callback(range(128, 0));
+        }
+
+        await sleep(33.3); // 33.3ms = ~30fps. Also the update rate of Lively's engine.
+      }
     }
   },
 };
