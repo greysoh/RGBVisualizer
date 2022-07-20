@@ -97,7 +97,7 @@ for (const i of indexes.val) {
     });
 
     lively.properties[i] = {
-      name: wallpaperProp.name,
+      text: wallpaperProp.text,
       type: "color",
       value: "#" + hex.join(""),
     };
