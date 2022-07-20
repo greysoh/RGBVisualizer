@@ -3,6 +3,8 @@ let audioCanvasCtx = null;
 
 let inc = 0; // Used for spread_mv mode
 
+let disabledOpts = false;
+
 // Options for the audio visualizer
 const opts = {
   rgbmode: "spread",
@@ -19,28 +21,16 @@ const opts = {
 const eventListeners = [];
 
 document.RGBVolumeApi = {
-  getAudioCanvas: () => {
-    return audioCanvas;
-  },
-  getAudioCanvasCtx: () => {
-    return audioCanvasCtx;
-  },
-  getOpts: () => {
-    return opts;
-  },
-  addEventListener: (event, callback) => {
-    if (event == "finish") {
-      eventListeners.push({
-        event: event,
-        callback: callback,
-      });
-    } else if (event == "start") {
-      eventListeners.push({
-        event: event,
-        callback: callback,
-      });
-    }
-  },
+  getAudioCanvas: () => audioCanvas,
+  getAudioCanvasCtx: () => audioCanvasCtx,
+
+  getOpts: () => opts,
+  setOpts: (newOpts) => opts = newOpts,
+
+  getAutoOptsToggle: () => autoOpsToggle,
+  toggleAutoOpts: () => disabledOpts ? disabledOpts = false : disabledOpts = true,
+
+  addEventListener: (event, callback) => eventListeners.push({ event, callback }),
 };
 
 // Precalculate gradient - blows up the browser if done otherwise
@@ -245,6 +235,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Add listener for property changes
   document.bridgeProxy.propsListener(function(properties) {
+    // If we're disabled, we don't need to do anything
+    if (disabledOpts) return;
+
     if (properties.pregen) {
       // If pregen ever gets disabled, we tell them that this is a bad idea.
       if (
