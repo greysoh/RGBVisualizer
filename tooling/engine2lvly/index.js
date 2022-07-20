@@ -126,4 +126,38 @@ await Deno.writeTextFile(
     JSON.stringify(lively.map, null, 2)
 );
 
+if (downloadMap == "Y" || downloadMap == "y") {
+  console.log("Searching for bridge...");
+  if (!existsSync("./bridgeSrc.js")) {
+    console.log("Could not find bridge!");
+    Deno.exit(0);
+  }
+
+  const map = await Deno.readTextFile("./bridgeSrc.js");
+  const mapLines = map.split("\n");
+  
+  let found = false;
+
+  for (const i in mapLines) {
+    if (mapLines[i].startsWith("// MAP_GEN_ID")) {
+      found = true;
+
+      mapLines[i] = `const map = ${JSON.stringify(lively.map, null)};`;
+      break;
+    }
+  }
+
+  if (!found) {
+    console.log("Could not find where to map!");
+    Deno.exit(0);
+  }
+
+  console.log("Writing bridge...");
+  await Deno.writeTextFile("./bridge.js", mapLines.join("\n"));
+} else {
+  console.log("Skipping bridge...");
+  const file = await Deno.readTextFile("./bridgeSrc.js");
+  await Deno.writeTextFile("./bridge.js", file);
+}
+
 console.log("Done!");
