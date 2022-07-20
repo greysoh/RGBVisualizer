@@ -1,0 +1,118 @@
+{
+	"contentrating" : "Everyone",
+	"description" : "A simple, RGB visualizer that serves as a base for more complex visualizations",
+	"file" : "index.html",
+	"general" : 
+	{
+		"properties" : 
+		{
+			"bakchoice" : 
+			{
+				"index" : 3,
+				"options" : 
+				[
+					{
+						"label" : "Solid Color",
+						"value" : "solid"
+					},
+					{
+						"label" : "Photo",
+						"value" : "photo"
+					}
+				],
+				"order" : 103,
+				"text" : "Background",
+				"type" : "combo",
+				"value" : "solid"
+			},
+			"bakcolor" : 
+			{
+				"index" : 4,
+				"order" : 104,
+				"text" : "Background Color",
+				"type" : "color",
+				"value" : "0 0 0"
+			},
+			"eval" : 
+			{
+				"index" : 6,
+				"order" : 106,
+				"text" : "Run base64 encoded JS",
+				"type" : "textinput",
+				"value" : ""
+			},
+			"param" : 
+			{
+				"index" : 7,
+				"order" : 107,
+				"text" : "JS Parameters",
+				"type" : "textinput",
+				"value" : ""
+			},
+			"photo" : 
+			{
+				"index" : 5,
+				"order" : 105,
+				"text" : "Background Photo (URL)",
+				"type" : "textinput",
+				"value" : ""
+			},
+			"pregen" : 
+			{
+				"index" : 0,
+				"order" : 100,
+				"text" : "Pregenerate Data",
+				"type" : "bool",
+				"value" : true
+			},
+			"rgbcolor" : 
+			{
+				"index" : 2,
+				"order" : 102,
+				"text" : "RGB Color",
+				"type" : "color",
+				"value" : "1 1 1"
+			},
+			"rgbmode1" : 
+			{
+				"index" : 1,
+				"options" : 
+				[
+					{
+						"label" : "Spread Out",
+						"value" : "spread"
+					},
+					{
+						"label" : "Spread Out (Moving)",
+						"value" : "spread_mv"
+					},
+					{
+						"label" : "Volume",
+						"value" : "vol"
+					},
+					{
+						"label" : "Custom Color",
+						"value" : "custom_col"
+					}
+				],
+				"order" : 101,
+				"text" : "RGB Mode",
+				"type" : "combo",
+				"value" : "spread"
+			},
+			"schemecolor" : 
+			{
+				"order" : 0,
+				"text" : "ui_browse_properties_scheme_color",
+				"type" : "color",
+				"value" : "0 0 0"
+			}
+		},
+		"supportsaudioprocessing" : true
+	},
+	"preview" : "preview.jpg",
+	"tags" : [ "Unspecified" ],
+	"title" : "RGB Visualizer",
+	"type" : "web",
+	"version" : 0
+}
