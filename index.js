@@ -170,7 +170,7 @@ document.bridgeProxy.audioListener(async function(audioArray) {
   }
 
   // Check if we should draw the visualizer
-  if (toggleDrawRGB) {
+  if (disabledRGBDraw) {
     return;
   }
 
