@@ -32,10 +32,10 @@ document.RGBVolumeApi = {
   getAutoOptsToggle: () => autoOpsToggle,
   toggleAutoOpts: () => disabledOpts ? disabledOpts = false : disabledOpts = true,
 
-  getDrawRGBToggle: () => drawRGBToggle,
+  getDrawRGBToggle: () => disabledRGBDraw,
   toggleDrawRGB: () => disabledRGBDraw ? disabledRGBDraw = false : disabledRGBDraw = true,
 
-  getDrawFrameToggle: () => drawFrameToggle,
+  getDrawFrameToggle: () => disabledFrameDraw,
   toggleDrawFrame: () => disabledFrameDraw ? disabledFrameDraw = false : disabledFrameDraw = true,
 
   getEventListeners: () => eventListeners,

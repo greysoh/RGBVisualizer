@@ -1,5 +1,10 @@
 # RGB Visualizer
-A simple, RGB visualizer that serves as a base for more complex visualizations  
+A simple, RGB visualizer that serves as a base for more complex visualizations
+## Who is this for? 
+This is for people who want to make their own visualizer config the easy way. You control all the effects.  
+A new project will be coming soon, based on the same code, with everything removed and is controlled using custom JS.  
+  
+You can control everything. The background renderer, colors, etc.
 ## Status
 - Feature complete
 - 100% working on Wallpaper Engine
